@@ -1,0 +1,579 @@
+/* ==========================================================================
+   QuizMaster - CSS Stylesheet
+   Pure CSS3 styling for modern card layout, options, results, and responsiveness
+   ========================================================================== */
+
+/* 1. Global CSS Variables & Reset */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #6b7280;
+    --secondary-hover: #4b5563;
+    --accent-color: #0284c7;
+    --success-color: #10b981;
+    --success-light: #d1fae5;
+    --danger-color: #ef4444;
+    --danger-light: #fee2e2;
+    --warning-color: #f59e0b;
+    --warning-light: #fef3c7;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --border-radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. Header Layout */
+.main-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 2rem;
+}
+
+.main-header h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+/* 3. Main Container & Cards */
+.container {
+    width: 100%;
+    max-width: 760px;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* Screen visibility utility classes */
+.screen {
+    display: block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 4. Form Controls (Start Screen) */
+#start-screen h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.description {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.required {
+    color: var(--danger-color);
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-main);
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: var(--primary-color);
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.88rem;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+/* 5. Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    user-select: none;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-hover);
+}
+
+.btn-info {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.btn-info:hover {
+    background-color: #0369a1;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 6. Quiz Screen Layout */
+.quiz-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: #f1f5f9;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.timer-box {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.progress-section {
+    margin-bottom: 25px;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+/* 7. Question & Options */
+.question-container {
+    margin-bottom: 25px;
+}
+
+#question-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 14px 18px;
+    background-color: #ffffff;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: left;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+    border-color: var(--primary-color);
+    background-color: #f8fafc;
+}
+
+.option-btn.selected {
+    border-color: var(--primary-color);
+    background-color: #eef2ff;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.option-prefix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--border-color);
+    color: var(--text-main);
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 12px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.option-btn.selected .option-prefix {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 8. Result Screen Layout */
+.result-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.result-header h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.score-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.score-card {
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+}
+
+.score-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.primary-card { border-top: 4px solid var(--primary-color); }
+.primary-card .score-value { color: var(--primary-color); }
+
+.accent-card { border-top: 4px solid var(--accent-color); }
+.accent-card .score-value { color: var(--accent-color); }
+
+.success-card { border-top: 4px solid var(--success-color); }
+.success-card .score-value { color: var(--success-color); }
+
+.danger-card { border-top: 4px solid var(--danger-color); }
+.danger-card .score-value { color: var(--danger-color); }
+
+.warning-card { border-top: 4px solid var(--warning-color); }
+.warning-card .score-value { color: var(--warning-color); }
+
+.performance-box {
+    background-color: #f1f5f9;
+    padding: 16px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.result-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 9. Answer Review Screen Layout */
+.review-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.review-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 18px;
+    background-color: #ffffff;
+}
+
+.review-item.status-correct {
+    border-left: 5px solid var(--success-color);
+}
+
+.review-item.status-incorrect {
+    border-left: 5px solid var(--danger-color);
+}
+
+.review-item.status-unanswered {
+    border-left: 5px solid var(--warning-color);
+}
+
+.review-question-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.review-question-text {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-success {
+    background-color: var(--success-light);
+    color: var(--success-color);
+}
+
+.badge-danger {
+    background-color: var(--danger-light);
+    color: var(--danger-color);
+}
+
+.badge-warning {
+    background-color: var(--warning-light);
+    color: var(--warning-color);
+}
+
+.review-answers-info {
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 6px;
+}
+
+.review-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* 10. Confirmation Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    max-width: 450px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.modal-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.modal-subtext {
+    color: var(--danger-color);
+    font-weight: 600;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 11. Responsive Media Queries */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+    .card {
+        padding: 20px;
+    }
+    .main-header h1 {
+        font-size: 1.75rem;
+    }
+    .quiz-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .score-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .quiz-navigation,
+    .result-actions,
+    .review-actions {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+    }
+}

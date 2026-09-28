@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster – Mock Test & Quiz Application</title>
+    <!-- Custom CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="logo-container">
+            <span class="logo-icon">📝</span>
+            <h1>QuizMaster</h1>
+        </div>
+        <p class="subtitle">Interactive Mock Test & Quiz Application</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- ========================================== -->
+        <!-- 1. START / HOME SCREEN -->
+        <!-- ========================================== -->
+        <section id="start-screen" class="card screen active">
+            <h2>Welcome to QuizMaster</h2>
+            <p class="description">
+                Test your technical knowledge! Select a category, difficulty, and number of questions to start your quiz.
+            </p>
+
+            <form id="quiz-setup-form" onsubmit="return false;">
+                <!-- Student Name Input -->
+                <div class="form-group">
+                    <label for="student-name">Enter Your Name <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="student-name" 
+                        placeholder="e.g. John Doe" 
+                        autocomplete="off"
+                    >
+                    <div id="name-error" class="error-message hidden">
+                        ⚠️ Please enter your name before starting the quiz.
+                    </div>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="form-group">
+                    <label for="category-select">Select Category</label>
+                    <select id="category-select">
+                        <option value="html">HTML & Web Basics</option>
+                        <option value="css">CSS Basics</option>
+                        <option value="javascript">JavaScript Basics</option>
+                        <option value="cs">General Computer Science</option>
+                    </select>
+                </div>
+
+                <!-- Difficulty Selection -->
+                <div class="form-group">
+                    <label for="difficulty-select">Select Difficulty</label>
+                    <select id="difficulty-select">
+                        <option value="all">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <!-- Question Count Selection -->
+                <div class="form-group">
+                    <label for="question-count">Number of Questions</label>
+                    <select id="question-count">
+                        <option value="5">5 Questions (5 Minutes)</option>
+                        <option value="10" selected>10 Questions (10 Minutes)</option>
+                    </select>
+                </div>
+
+                <!-- Start Button -->
+                <button type="button" id="start-btn" class="btn btn-primary btn-block">
+                    🚀 Start Quiz
+                </button>
+            </form>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. QUIZ SCREEN -->
+        <!-- ========================================== -->
+        <section id="quiz-screen" class="card screen hidden">
+            <!-- Quiz Meta Header -->
+            <div class="quiz-header-info">
+                <div class="user-badge">
+                    <span>👤 Student: </span>
+                    <strong id="display-student-name">-</strong>
+                </div>
+                <div class="category-badge">
+                    <span>📚 Category: </span>
+                    <strong id="display-category">-</strong>
+                </div>
+                <div class="timer-box">
+                    <span>⏰ Time Left: </span>
+                    <strong id="timer-display">10:00</strong>
+                </div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="progress-section">
+                <div class="progress-labels">
+                    <span id="question-tracker">Question 1 of 10</span>
+                    <span id="progress-percent">10%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <!-- Question & Options Card -->
+            <div class="question-container">
+                <h3 id="question-text">Question text will load here...</h3>
+                <div id="options-container" class="options-list">
+                    <!-- Option buttons dynamically generated by script.js -->
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="quiz-navigation">
+                <button type="button" id="prev-btn" class="btn btn-secondary" disabled>
+                    ⬅️ Previous
+                </button>
+                <button type="button" id="next-btn" class="btn btn-primary">
+                    Next ➡️
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. RESULT SCREEN -->
+        <!-- ========================================== -->
+        <section id="result-screen" class="card screen hidden">
+            <div class="result-header">
+                <h2>🎉 Quiz Completed!</h2>
+                <p>Great job, <strong id="result-student-name">Student</strong>! Here is your performance breakdown:</p>
+            </div>
+
+            <!-- Score Cards Grid -->
+            <div class="score-cards-grid">
+                <div class="score-card primary-card">
+                    <div class="score-title">Total Score</div>
+                    <div class="score-value" id="score-text">0 / 0</div>
+                </div>
+                <div class="score-card accent-card">
+                    <div class="score-title">Percentage</div>
+                    <div class="score-value" id="percentage-text">0%</div>
+                </div>
+                <div class="score-card success-card">
+                    <div class="score-title">Correct</div>
+                    <div class="score-value" id="correct-count">0</div>
+                </div>
+                <div class="score-card danger-card">
+                    <div class="score-title">Incorrect</div>
+                    <div class="score-value" id="incorrect-count">0</div>
+                </div>
+                <div class="score-card warning-card">
+                    <div class="score-title">Unanswered</div>
+                    <div class="score-value" id="unanswered-count">0</div>
+                </div>
+            </div>
+
+            <!-- Performance Feedback -->
+            <div id="performance-box" class="performance-box">
+                <p id="performance-message">Performance message will appear here.</p>
+            </div>
+
+            <!-- Result Actions -->
+            <div class="result-actions">
+                <button type="button" id="review-btn" class="btn btn-info">
+                    🔍 Review Answers
+                </button>
+                <button type="button" id="restart-btn" class="btn btn-primary">
+                    🔄 Restart Quiz
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. ANSWER REVIEW SCREEN -->
+        <!-- ========================================== -->
+        <section id="review-screen" class="card screen hidden">
+            <div class="review-header">
+                <h2>📋 Question Review</h2>
+                <p>Review all your answers along with the correct solutions below.</p>
+            </div>
+
+            <!-- Dynamic Review Items Container -->
+            <div id="review-container" class="review-list">
+                <!-- Dynamically generated question reviews -->
+            </div>
+
+            <div class="review-actions">
+                <button type="button" id="back-to-results-btn" class="btn btn-secondary">
+                    ⬅️ Back to Results
+                </button>
+                <button type="button" id="restart-from-review-btn" class="btn btn-primary">
+                    🔄 Try Another Quiz
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Submit Confirmation -->
+    <div id="confirm-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3>⚠️ Confirm Submission</h3>
+            <p>Are you sure you want to submit your quiz now?</p>
+            <p id="unanswered-warning" class="modal-subtext"></p>
+            <div class="modal-actions">
+                <button type="button" id="cancel-submit-btn" class="btn btn-secondary">
+                    Continue Quiz
+                </button>
+                <button type="button" id="confirm-submit-btn" class="btn btn-danger">
+                    Yes, Submit Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application File -->
+    <script src="script.js"></script>
+</body>
+</html>
